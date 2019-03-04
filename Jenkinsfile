@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'cp target/SimpleMavenJunitWebApp.war /usr/share/tomcat/webapps'
+                sh 'sudo cp -f target/SimpleMavenJunitWebApp.war /usr/share/tomcat/webapps'
             }
         }
     }
