@@ -4,7 +4,7 @@ pipeline {
     tools {
         maven 'maven3.6.0'
         jdk 'java1.8.0'
-        hudson.plugins.sonar.SonarRunnerInstallation 'sonar3.3.0'
+        hudson.plugins.sonar.SonarRunnerInstallation 
     }
     stages {
         stage('Build') {
