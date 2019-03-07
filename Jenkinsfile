@@ -12,6 +12,11 @@ pipeline {
         jdk 'java1.8.0'
     }
     stages {
+        stage('Cloning Git') {
+          steps {
+            git 'https://github.com/mazuma5/SimpleMavenJunitWebApp'
+          }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
