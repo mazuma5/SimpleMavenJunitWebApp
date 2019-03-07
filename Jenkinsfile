@@ -51,7 +51,7 @@ pipeline {
     stage('Deploy Docker image'){
         steps {
             script {
-                def server = Artifactory.server 'http://34.219.211.164'
+                def server = Artifactory.server 'artifactory'
                 def rtDocker = Artifactory.docker server: server
                 def buildInfo = rtDocker.push('docker-local/$registry:$BUILD_NUMBER', 'docker')
                 //also tried:
