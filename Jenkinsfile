@@ -1,4 +1,4 @@
-//author: Avik Mazumder mazuma5
+//author: Avik Mazumder 
 pipeline {
     environment{
         registry = "mazuma5/simple-maven-webapp"
