@@ -7,7 +7,16 @@
   <version>1.0-SNAPSHOT</version>
   <name>Simple Maven Junit Webapp</name>
   <url>http://maven.apache.org</url>
-  <sonar.host.url>http://34.220.138.86:9001</sonar.host.url>
+  <profile>
+   <id>sonar</id>
+   <activation>
+      <activeByDefault>true</activeByDefault>
+   </activation>
+   <properties>
+      <!-- SERVER ON A REMOTE HOST -->
+      <sonar.host.url>http://34.220.138.86:9001</sonar.host.url>
+   </properties>
+</profile>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
