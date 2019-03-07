@@ -60,7 +60,7 @@ pipeline {
     }
     stage('Run Container'){
         steps{
-            sh 'docker run --name=simple-maven-app -d -p 3000:8000 $registry:$BUILD_NUMBER &'
+            sh 'docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER &'
         }
      }
         /*stage('Upload') {
