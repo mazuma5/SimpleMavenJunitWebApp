@@ -39,6 +39,30 @@ pipeline {
             }
           }
         }
+        stage('Push Image'){
+      steps{
+        script{
+          docker.withRegistry('',registryCredential) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    
+    stage('Cleanup'){
+      when{
+        not {environment ignoreCase:true, name:'containerId', value:''}
+      }
+      steps {
+        sh 'docker stop ${containerId}'
+        sh 'docker rm ${containerId}'
+      }
+    }
+    stage('Run Container'){
+        steps{
+            sh 'docker run --name=simple-maven-app -d -p 3000:3000 $registry:$BUILD_NUMBER &'
+        }
+     }
         /*stage('Upload') {
             steps {
                 sh 'curl -X PUT -u admin:password -T target/SimpleMavenJunitWebApp.war "http://localhost:8081/artifactory/libs-release-local/SimpleMavenJunitWebApp.war"'
