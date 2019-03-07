@@ -53,11 +53,11 @@ pipeline {
             script {
                 def server = Artifactory.server 'artifactory'
                 def rtDocker = Artifactory.docker server: server
-                def buildInfo = rtDocker.push('$registry:$BUILD_NUMBER', 'docker')
+                //def buildInfo = rtDocker.push('$registry:$BUILD_NUMBER', 'docker')
                 //also tried:
                 //def buildInfo = rtDocker.push('registry-url/docker/image:latest', 'docker') 
                 //the above results in registry/docker/docker/image..
-                server.publishBuildInfo buildInfo
+                //server.publishBuildInfo buildInfo
             }
         }
     }
