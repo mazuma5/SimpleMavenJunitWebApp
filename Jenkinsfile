@@ -1,7 +1,7 @@
 //author: Avik Mazumder 
 pipeline {
     environment{
-        registry = "mazuma5 / simple-maven-webapp"
+        registry = "mazuma5/simple-maven-webapp"
         registryCredential = 'Dockerhub'
         dockerImage = ''
         containerId = sh(script: 'docker ps -aqf "name=simple-maven-app"', returnStdout:true)
@@ -26,6 +26,13 @@ pipeline {
                     junit 'target/surefire-reports/*.xml'
                 }
             }
+        }
+        stage('Building Image'){
+          steps{
+            script{
+              dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            }
+          }
         }
         /*stage('Upload') {
             steps {
