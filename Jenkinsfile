@@ -64,12 +64,14 @@ pipeline {
     }*/
     
     stage('Cleanup'){
-      when{
+      /*when{
         not {environment ignoreCase:true, name:'containerId', value:''}
-      }
+      }*/
       steps {
-        sh 'docker stop ${containerId}'
-        sh 'docker rm ${containerId}'
+     /*   sh 'docker stop ${containerId}'
+        sh 'docker rm ${containerId}'*/
+          sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
+          sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'
       }
     }
         
