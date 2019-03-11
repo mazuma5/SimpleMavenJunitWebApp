@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: sampleapp
-        image: mazuma5/simple-maven-webapp
+        image: mazuma5/simple-maven-webapp:$BUILD_NUMBER
         ports:
         - containerPort: 8080
         volumeMounts:
