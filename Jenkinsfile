@@ -92,7 +92,6 @@ pipeline {
         }*/
         stage('Deploy the app'){
             steps{
-                sh 'kubectl delete --all pods --namespace=unicorn'
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                         configs: 'Application.yml',
