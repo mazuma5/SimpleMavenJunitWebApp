@@ -88,11 +88,13 @@ pipeline {
             }
         }*/
         stage('Deploy the app'){
-            kubernetesDeploy(
-                kubeconfigId: 'kubeconfig',
-                    configs: 'Application.yml',
-                    enableConfigSubstitution: false
-            )
+            steps{
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                        configs: 'Application.yml',
+                        enableConfigSubstitution: false
+                )
+            }
         }
     }
 }
