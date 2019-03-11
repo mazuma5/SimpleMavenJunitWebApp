@@ -88,7 +88,7 @@ pipeline {
             }
         }*/
         stage('Deploy the app'){
-            kubernatesDeploy(
+            kubernetesDeploy(
                 kubeconfigId: 'kubeconfig',
                     configs: 'Application.yml',
                     enableConfigSubstitution: false
