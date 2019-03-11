@@ -64,9 +64,9 @@ pipeline {
     }*/
     
     stage('Cleanup'){
-      /*when{
+      when{
         not {environment ignoreCase:true, name:'containerId', value:''}
-      }*/
+      }
       steps {
         sh 'docker stop ${containerId}'
         sh 'docker rm ${containerId}'
