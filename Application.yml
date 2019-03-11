@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: sampleapp
-        image: mazuma5/simple-maven-webapp:31
+        image: mazuma5/simple-maven-webapp:33
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
