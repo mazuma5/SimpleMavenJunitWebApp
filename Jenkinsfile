@@ -2,7 +2,7 @@
 pipeline {
     environment{
         registry = "mazuma5/simple-maven-webapp"
-        registryCredential = 'Dockerhub'
+        registryCredential = 'Docker-Password-Can'
         dockerImage = ''
         containerId = sh(script: 'docker ps -aqf "name=simple-maven-app"', returnStdout:true)
     }
@@ -39,7 +39,7 @@ pipeline {
             }
           }
         }
-    /*    stage('Push Image'){
+       stage('Push Image'){
       steps{
         script{
           docker.withRegistry('',registryCredential) {
@@ -47,8 +47,8 @@ pipeline {
           }
         }
       }
-    }*/
-    stage('Deploy Docker image'){
+    }
+   /* stage('Deploy Docker image'){
         steps {
             script {
                 def server = Artifactory.server 'artifactory'
@@ -60,7 +60,7 @@ pipeline {
                 //server.publishBuildInfo buildInfo
             }
         }
-    }
+    }*/
     
     stage('Cleanup'){
       when{
