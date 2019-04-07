@@ -41,14 +41,13 @@ pipeline {
           }
         }
        stage('Push Image'){
-      steps{
-        script{
-          docker.withRegistry('',registryCredential) {
-            dockerImage.push("$BUILD_NUMBER")
-            dockerImage.push("latest")
+          steps{
+            script{
+              docker.withRegistry('',registryCredential) {
+                dockerImage.push("$BUILD_NUMBER")
+              }
+            }
           }
-        }
-      }
     }
    /* stage('Deploy Docker image'){
         steps {
@@ -69,10 +68,12 @@ pipeline {
         not {environment ignoreCase:true, name:'containerId', value:''}
       }*/
       steps {
-     /*   sh 'docker stop ${containerId}'
-        sh 'docker rm ${containerId}'*/
+     /*   sh 'docker stop ${containerId}' //Old
+        sh 'docker rm ${containerId}'
           sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
-          sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'
+          sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'*/
+          sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop"';
+          sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm"';
       }
     }
     
