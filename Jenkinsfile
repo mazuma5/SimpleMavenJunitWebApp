@@ -13,15 +13,6 @@ pipeline {
     }
     
     stages {
-        stage('Remote'){
-            steps{
-                sshagent(credentials : ['Peekay']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
-                    sh 'ssh -v ec2-user@3.19.65.167'
-                    //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                }
-            }   
-        }
         stage('Cloning Git') {
           steps {
             git 'https://github.com/mazuma5/SimpleMavenJunitWebApp'
@@ -84,12 +75,23 @@ pipeline {
           sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'
       }
     }
-        
-    stage('Run Container'){
+    
+    stage('Deploy'){
+        steps{
+            sshagent(credentials : ['Peekay']) {
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
+                sh 'ssh -v ec2-user@3.19.65.167'
+                //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
+                sh 'ssh ec2-user@3.19.65.167 "docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER &"'
+            }
+        }   
+    }
+    
+    /*stage('Run Container'){
         steps{
             sh 'docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER &'
         }
-     }
+     }*/
         /*stage('Upload') {
             steps {
                 sh 'curl -X PUT -u admin:password -T target/SimpleMavenJunitWebApp.war "http://localhost:8081/artifactory/libs-release-local/SimpleMavenJunitWebApp.war"'
