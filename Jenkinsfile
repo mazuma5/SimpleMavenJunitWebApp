@@ -82,7 +82,7 @@ pipeline {
                 //sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
                 //sh 'ssh -v ec2-user@3.19.65.167'
                 //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                //sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "sudo docker ps"'
+                sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "sudo docker ps"'
                 //sh ' ssh -i 3.19.65.167'
             }
         }   
