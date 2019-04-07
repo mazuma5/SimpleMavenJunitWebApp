@@ -33,6 +33,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('Test') {
+            steps {
+                sh 'mvn sonar:sonar'
+            }
+        }
+        
         stage('Building Image'){
           steps{
             script{
