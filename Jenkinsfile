@@ -11,7 +11,13 @@ pipeline {
         maven 'Maven'
         jdk 'JDK'
     }
+    
     stages {
+        stage('Remote'){
+            steps{
+                sh 'ssh -tt ec2-user@3.19.65.167 "ls -lrt"'
+            }   
+        }
         stage('Cloning Git') {
           steps {
             git 'https://github.com/mazuma5/SimpleMavenJunitWebApp'
