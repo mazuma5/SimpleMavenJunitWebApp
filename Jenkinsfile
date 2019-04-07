@@ -73,8 +73,8 @@ pipeline {
           sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
           sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'*/
           sshagent(credentials : ['Peekay']) {
-                          sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "sudo docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop"';
-          sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "sudo docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm"';
+               sh 'ssh -tt ec2-user@3.19.65.167 "sudo docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty sudo docker container stop"';
+                sh 'ssh -tt ec2-user@3.19.65.167 "sudo docker container ls -a -fname=simple-maven-app -q | xargs -r sudo docker container rm"';
             }
       }
     }
