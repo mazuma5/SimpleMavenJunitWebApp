@@ -34,7 +34,7 @@ pipeline {
             }
         }
         
-        stage('Test') {
+        stage('Sonar Scan') {
             steps {
                 sh 'mvn sonar:sonar'
             }
