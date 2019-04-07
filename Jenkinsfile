@@ -82,7 +82,7 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
                 sh 'ssh -v ec2-user@3.19.65.167'
                 //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                sh 'ssh ec2-user@3.19.65.167 "ls /"'
+                sh 'ssh -t ec2-user@3.19.65.167 "sudo docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER &"'
             }
         }   
     }
