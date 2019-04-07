@@ -15,7 +15,11 @@ pipeline {
     stages {
         stage('Remote'){
             steps{
-                sh 'ssh -tt ec2-user@3.19.65.167 "ls -lrt"'
+                sshagent(credentials : ['Peekay']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
+                    sh 'ssh -v ec2-user@3.19.65.167'
+                    //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
+                }
             }   
         }
         stage('Cloning Git') {
