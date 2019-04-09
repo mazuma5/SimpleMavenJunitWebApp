@@ -34,11 +34,11 @@ pipeline {
             }
         }
         
-        stage('Sonar Scan') {
+       /* stage('Sonar Scan') {
             steps {
                 sh 'mvn sonar:sonar'
             }
-        }
+        }*/
         
         stage('Building Image'){
           steps{
