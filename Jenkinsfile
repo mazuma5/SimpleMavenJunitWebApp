@@ -80,8 +80,8 @@ pipeline {
           sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
           sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'*/
           sshagent(credentials : ['Peekay']) {
-               sh 'ssh -tt ec2-user@3.19.65.167 "sudo docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty sudo docker container stop"';
-                sh 'ssh -tt ec2-user@3.19.65.167 "sudo docker container ls -a -fname=simple-maven-app -q | xargs -r sudo docker container rm"';
+               sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty sudo docker container stop"';
+                sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker container ls -a -fname=simple-maven-app -q | xargs -r sudo docker container rm"';
             }
       }
     }
@@ -92,7 +92,7 @@ pipeline {
                 //sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
                 //sh 'ssh -v ec2-user@3.19.65.167'
                 //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                sh 'ssh -tt -o TCPKeepAlive=yes -o ServerAliveInterval=30 ec2-user@3.19.65.167 "sudo docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER"'
+                sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER"'
                 //sh ' ssh -i 3.19.65.167'
             }
         }   
