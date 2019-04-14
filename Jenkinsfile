@@ -7,11 +7,7 @@ pipeline {
         containerId = sh(script: 'docker ps -aqf "name=simple-maven-app"', returnStdout:true)
     }
     agent any
- /*   tools {
-        maven 'Maven'
-        jdk 'JDK'
-    }
-    */
+    
     stages {
         stage('Cloning Git') {
           steps {
@@ -71,48 +67,23 @@ pipeline {
     }*/
     
     stage('Cleanup'){
-      /*when{
+      when{
         not {environment ignoreCase:true, name:'containerId', value:''}
-      }*/
+      }
       steps {
-     /*   sh 'docker stop ${containerId}' //Old
+        sh 'docker stop ${containerId}' //Old
         sh 'docker rm ${containerId}'
-          sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
-          sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'*/
-          sshagent(credentials : ['Peekay']) {
-               sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty sudo docker container stop"';
-                sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker container ls -a -fname=simple-maven-app -q | xargs -r sudo docker container rm"';
-            }
+        //sh 'docker ps -f name=simple-maven-app -q | xargs --no-run-if-empty docker container stop'
+        //sh 'docker container ls -a -fname=simple-maven-app -q | xargs -r docker container rm'
       }
     }
-    
-    stage('Deploy'){
-        steps{
-            sshagent(credentials : ['Peekay']) {
-                //sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.19.65.167 uptime'
-                //sh 'ssh -v ec2-user@3.19.65.167'
-                //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                sh 'ssh -tt ec2-user@18.220.56.69 "sudo docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER"'
-                //sh ' ssh -i 3.19.65.167'
-            }
-        }   
-    }
-    
-    /*stage('Run Container'){
+   
+    stage('Run Container'){
         steps{
             sh 'docker run --name=simple-maven-app -d -p 3000:8080 $registry:$BUILD_NUMBER &'
         }
-     }*/
-        /*stage('Upload') {
-            steps {
-                sh 'curl -X PUT -u admin:password -T target/SimpleMavenJunitWebApp.war "http://localhost:8081/artifactory/libs-release-local/SimpleMavenJunitWebApp.war"'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'sudo cp -f target/SimpleMavenJunitWebApp.war /usr/share/tomcat/webapps'
-            }
-        }
+     }
+        /*
         
         stage('Deploy the app'){
             steps{
