@@ -7,11 +7,11 @@ pipeline {
         containerId = sh(script: 'docker ps -aqf "name=simple-maven-app"', returnStdout:true)
     }
     agent any
-    tools {
+ /*   tools {
         maven 'Maven'
         jdk 'JDK'
     }
-    
+    */
     stages {
         stage('Cloning Git') {
           steps {
